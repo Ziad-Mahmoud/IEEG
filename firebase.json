@@ -1,0 +1,28 @@
+{
+  "hosting": {
+    "site": "ieeg",
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  },
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "auth": {
+    "providers": {
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "ieeg",
+        "supportEmail": "ziad99r@gmail.com"
+      }
+    }
+  }
+}

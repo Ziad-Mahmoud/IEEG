@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المجموعة الاقتصادية الدولية لريادة الأعمال</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#0a2342;
+  --primary-dark:#061529;
+  --primary-mid:#0d3060;
+  --primary-hover:#1a4a7a;
+  --primary-light:#d0dff0;
+  --primary-xlt:#eaf0f8;
+  --gold:#c9a227;
+  --gold-light:#f5e6b0;
+  --gold-dark:#a07c10;
+  --text:#1a1a1a;
+  --text-muted:#4a5568;
+  --bg:#ffffff;
+  --surface:#f2f6fb;
+  --border:#b8cfe0;
+  --border-lt:#d8e8f0;
+  --font:'Cairo',sans-serif;
+  --max-w:1160px;
+  --r:12px;
+  --rs:8px;
+  --t:.3s ease;
+  --sh-s:0 2px 14px rgba(10,35,66,.08);
+  --sh-m:0 6px 28px rgba(10,35,66,.14);
+  --sh-l:0 14px 50px rgba(10,35,66,.2);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);color:var(--text);background:var(--bg);line-height:1.75}
+a{text-decoration:none;color:inherit}
+ul{list-style:none}
+button{font-family:var(--font);cursor:pointer}
+.w{max-width:var(--max-w);margin:0 auto;padding:0 24px}
+section{padding:88px 0}
+
+.tag{display:inline-block;background:var(--gold-light);border:1px solid rgba(201,162,39,.35);color:var(--gold-dark);padding:5px 18px;border-radius:50px;font-size:.82rem;font-weight:700;margin-bottom:14px}
+h2.sh{font-size:clamp(1.55rem,3vw,2.1rem);font-weight:900;color:var(--primary);margin-bottom:12px;line-height:1.3}
+.ssub{font-size:.96rem;color:var(--text-muted);max-width:580px;line-height:1.82}
+.sec-top{text-align:center;margin-bottom:52px}
+.sec-top .ssub{margin:0 auto}
+.bar{width:52px;height:4px;background:var(--gold);border-radius:2px;margin:13px auto}
+
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:var(--rs);font-weight:700;font-size:.92rem;transition:var(--t);border:2px solid transparent;font-family:var(--font)}
+.btn-p{background:var(--gold);color:#fff;border-color:var(--gold)}
+.btn-p:hover{background:var(--gold-dark);border-color:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 22px rgba(201,162,39,.35)}
+.btn-o{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-o:hover{background:#fff;color:var(--primary)}
+.btn-w{border-color:rgba(255,255,255,.7);color:#fff}
+.btn-w:hover{background:#fff;color:var(--primary)}
+
+/* ── AUTH BAR ── */
+#auth-bar{background:var(--primary-dark);padding:7px 0;border-bottom:1px solid rgba(201,162,39,.2)}
+.auth-in{display:flex;align-items:center;justify-content:flex-left;gap:12px}
+#signin-btn{background:var(--gold);color:#fff;border:none;border-radius:6px;padding:6px 16px;font-size:.8rem;font-weight:700;font-family:var(--font);cursor:pointer;transition:var(--t)}
+#signin-btn:hover{background:var(--gold-dark)}
+#user-info{display:none;align-items:center;gap:8px}
+#user-photo{width:26px;height:26px;border-radius:50%;border:2px solid var(--gold)}
+#user-name{font-size:.8rem;color:rgba(255,255,255,.8);font-family:var(--font)}
+#signout-btn{background:transparent;color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.2);border-radius:6px;padding:3px 10px;font-size:.75rem;font-family:var(--font);cursor:pointer}
+#sync-status{font-size:.75rem;color:rgba(255,255,255,.45);margin-right:auto}
+#sync-status.saving{color:var(--gold)}
+#sync-status.saved{color:#5dbb8a}
+#sync-status.error{color:#e07070}
+
+/* ── NAV ── */
+#nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,35,66,.97);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,162,39,.2);padding:11px 0;transition:var(--t)}
+#nav.sc{box-shadow:0 3px 22px rgba(10,35,66,.4)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-brand{display:flex;align-items:center;gap:10px}
+.nav-logo-img{width:54px;height:54px;border-radius:10px;object-fit:contain;background:#fff;padding:3px}
+.nav-brand .n1{font-size:.98rem;font-weight:900;color:#fff;display:block;line-height:1.2}
+.nav-brand .n2{font-size:.62rem;color:rgba(201,162,39,.85)}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{color:rgba(255,255,255,.8);font-size:.87rem;font-weight:600;transition:var(--t);position:relative;padding-bottom:3px}
+.nav-links a::after{content:'';position:absolute;bottom:0;right:0;width:0;height:2px;background:var(--gold);transition:var(--t);border-radius:2px}
+.nav-links a:hover{color:var(--gold)}
+.nav-links a:hover::after{width:100%}
+.hbg{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.hbg span{display:block;width:26px;height:2px;background:var(--gold);border-radius:2px;transition:var(--t)}
+.mob-nav{display:none;position:fixed;inset:0;background:var(--primary-dark);z-index:999;flex-direction:column;align-items:center;justify-content:center;gap:26px;border-top:3px solid var(--gold)}
+.mob-nav.op{display:flex}
+.mob-nav a{color:#fff;font-size:1.2rem;font-weight:700;transition:var(--t)}
+.mob-nav a:hover{color:var(--gold)}
+.mob-x{position:absolute;top:20px;left:20px;background:none;border:none;color:var(--gold);font-size:2rem;cursor:pointer}
+
+/* ── HERO ── */
+#hero{min-height:100vh;background:linear-gradient(150deg,#040f1e 0%,#0a2342 35%,#0d3060 65%,#071828 100%);position:relative;overflow:hidden;display:flex;align-items:stretch}
+#hero::before{content:'';position:absolute;inset:0;background-image:radial-gradient(ellipse at 70% 40%,rgba(201,162,39,.08) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(13,48,96,.6) 0%,transparent 50%);pointer-events:none;z-index:1}
+.hero-grid{display:grid;grid-template-columns:1fr 360px;width:100%;min-height:100vh;position:relative;z-index:2}
+.hero-content{padding:140px 5% 80px;display:flex;flex-direction:column;justify-content:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,.12);border:2px solid rgba(201,162,39,.35);color:var(--gold-light);padding:7px 18px;border-radius:50px;font-size:.83rem;font-weight:700;margin-bottom:22px}
+.hero-h{font-size:clamp(2rem,4.5vw,3.2rem);font-weight:900;color:#fff;line-height:1.28;margin-bottom:18px;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero-h em{color:var(--gold);font-style:normal}
+.hero-p{font-size:.95rem;color:rgba(255,255,255,.72);margin-bottom:34px;line-height:1.87;max-width:500px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-panel{background:rgba(4,15,30,.75);border-right:3px solid var(--gold);backdrop-filter:blur(12px);display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:14px;padding:80px 32px;position:relative}
+.hero-panel::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(201,162,39,.05),transparent);pointer-events:none}
+.hero-lbl{text-align:center;color:var(--gold);font-size:.9rem;font-weight:700;margin-bottom:4px;letter-spacing:.5px}
+.hero-stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.hstat{background:rgba(255,255,255,.05);border:1px solid rgba(201,162,39,.2);border-radius:var(--r);padding:18px 12px;text-align:center;transition:var(--t)}
+.hstat:hover{background:rgba(201,162,39,.08);transform:scale(1.03);border-color:rgba(201,162,39,.45)}
+.hstat-n{font-size:2.2rem;font-weight:900;color:var(--gold);line-height:1}
+.hstat-l{font-size:.77rem;color:rgba(255,255,255,.8);margin-top:5px}
+.hero-meta{text-align:center;font-size:.77rem;color:rgba(255,255,255,.45);margin-top:8px;line-height:1.9}
+.reg-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(201,162,39,.1);border:1px solid rgba(201,162,39,.25);color:var(--gold-light);padding:8px 14px;border-radius:var(--rs);font-size:.75rem;margin-top:18px;line-height:1.6}
+
+/* ── COVER IMAGE ── */
+#cover{padding:0;background:var(--primary-dark)}
+#cover img{width:100%;display:block;object-fit:cover;object-position:center top}
+
+/* ── STATS MOBILE ── */
+#stats{padding:0;background:var(--primary);display:none}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr)}
+.s-cell{padding:40px 16px;text-align:center;border-left:1px solid rgba(255,255,255,.12);transition:background var(--t)}
+.s-cell:last-child{border-left:none}
+.s-cell:hover{background:rgba(255,255,255,.06)}
+.s-num{font-size:2.6rem;font-weight:900;color:var(--gold);line-height:1;margin-bottom:6px}
+.s-lbl{font-size:.89rem;color:rgba(255,255,255,.8);font-weight:600}
+
+/* ── ABOUT ── */
+#about{background:var(--surface)}
+.about-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:56px;align-items:start}
+.about-txt p{color:var(--text-muted);margin-bottom:13px;font-size:.94rem;line-height:1.85}
+.vmv{display:flex;flex-direction:column;gap:13px}
+.vmv-card{background:var(--bg);border-radius:var(--r);padding:20px 22px;border-right:4px solid var(--gold);box-shadow:var(--sh-s);transition:var(--t)}
+.vmv-card:hover{transform:translateX(-4px);box-shadow:var(--sh-m)}
+.vmv-card h3{font-size:.94rem;font-weight:700;color:var(--primary);margin-bottom:6px}
+.vmv-card p{color:var(--text-muted);font-size:.85rem;line-height:1.74}
+.official-box{background:var(--primary-xlt);border:1.5px solid var(--border);border-radius:var(--rs);padding:14px 18px;margin-top:20px;display:flex;align-items:center;gap:10px;font-size:.86rem;color:var(--primary);font-weight:700}
+
+/* ── PRINCIPLES ── */
+#principles{background:var(--bg)}
+.prin-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.prin-card{background:var(--primary-xlt);border-radius:var(--r);padding:22px;display:flex;gap:13px;align-items:flex-start;border:1px solid var(--border-lt);transition:var(--t)}
+.prin-card:hover{border-color:var(--gold);box-shadow:var(--sh-m);transform:translateY(-4px);background:var(--bg)}
+.pico{width:44px;height:44px;background:var(--primary-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:1.5px solid var(--border)}
+.prin-card p{font-size:.84rem;color:var(--text-muted);line-height:1.78}
+
+/* ── SERVICES ── */
+#services{background:var(--surface)}
+.tabs-bar{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin-bottom:42px}
+.tab{padding:9px 20px;border-radius:50px;border:2px solid var(--border);background:var(--bg);color:var(--text-muted);font-size:.86rem;font-weight:700;transition:var(--t);font-family:var(--font)}
+.tab:hover,.tab.on{border-color:var(--gold);background:var(--gold);color:#fff}
+.panel{display:none}.panel.on{display:block}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.scard{border-radius:var(--r);border:1px solid var(--border-lt);overflow:hidden;transition:var(--t);background:var(--bg)}
+.scard:hover{transform:translateY(-5px);box-shadow:var(--sh-l);border-color:var(--gold)}
+.sc-head{background:var(--primary);padding:20px;display:flex;gap:11px;align-items:flex-start}
+.sc-head .ico{font-size:1.9rem;flex-shrink:0;margin-top:2px}
+.sc-head h3{color:#fff;font-size:1rem;font-weight:700}
+.sc-head p{color:rgba(255,255,255,.6);font-size:.76rem;margin-top:3px}
+.sc-body{padding:16px 18px}
+.sc-body li{display:flex;align-items:flex-start;gap:7px;font-size:.84rem;color:var(--text-muted);padding:5px 0;border-bottom:1px solid var(--border-lt)}
+.sc-body li:last-child{border-bottom:none}
+.sc-body li::before{content:'✓';color:var(--gold);font-weight:900;flex-shrink:0}
+.sf{background:var(--bg);border-radius:var(--r);padding:24px;border:1px solid var(--border-lt);transition:var(--t);box-shadow:var(--sh-s)}
+.sf:hover{border-color:var(--gold);box-shadow:var(--sh-m);transform:translateY(-3px)}
+.sf h3{font-size:.95rem;font-weight:700;color:var(--primary);margin-bottom:10px}
+.sf p{font-size:.84rem;color:var(--text-muted);line-height:1.78}
+
+/* ── WHY ── */
+#why{background:linear-gradient(135deg,var(--primary-dark) 0%,var(--primary-mid) 100%)}
+#why h2.sh{color:#fff}
+#why .ssub{color:rgba(255,255,255,.65)}
+#why .tag{background:rgba(201,162,39,.15);border-color:rgba(201,162,39,.35);color:var(--gold-light)}
+#why .bar{background:var(--gold)}
+.why-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+.wcard{background:rgba(255,255,255,.06);border:1px solid rgba(201,162,39,.2);border-radius:var(--r);padding:24px 14px;text-align:center;transition:var(--t)}
+.wcard:hover{background:rgba(201,162,39,.1);transform:translateY(-5px);border-color:rgba(201,162,39,.5)}
+.wcard .wico{width:52px;height:52px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
+.wcard .wico img{width:100%;height:100%;object-fit:contain}
+.wcard span{font-size:2.2rem;margin-bottom:11px;display:block}
+.wcard h4{color:#fff;font-size:.9rem;font-weight:700;margin-bottom:7px;line-height:1.4}
+.wcard p{color:rgba(255,255,255,.62);font-size:.78rem;line-height:1.7}
+
+/* ── TEAM ── */
+#team{background:var(--bg)}
+.leader-card{background:var(--primary-xlt);border-radius:var(--r);padding:32px;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;border:2px solid var(--gold);box-shadow:var(--sh-m);margin-bottom:28px}
+.av-big{width:94px;height:94px;border-radius:50%;object-fit:cover;flex-shrink:0;border:3px solid var(--gold)}
+.av-big-placeholder{width:94px;height:94px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.9rem;flex-shrink:0;color:#fff;border:3px solid var(--gold)}
+.leader-info h3{font-size:1.25rem;font-weight:900;color:var(--primary);margin-bottom:3px}
+.leader-info .role{color:var(--gold-dark);font-weight:700;font-size:.84rem;margin-bottom:10px}
+.leader-info p{font-size:.87rem;color:var(--text-muted);line-height:1.8}
+.leader-info .books{margin-top:10px;font-size:.8rem;color:var(--text-muted);background:#fff;border-radius:var(--rs);padding:10px 14px;border-right:3px solid var(--gold)}
+.team-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.tcard{background:var(--surface);border-radius:var(--r);padding:24px 18px;text-align:center;border:1px solid var(--border-lt);transition:var(--t)}
+.tcard:hover{border-color:var(--gold);box-shadow:var(--sh-m);transform:translateY(-4px);background:var(--bg)}
+.av-sm{width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 11px;border:2px solid var(--gold);display:block}
+.av-sm-placeholder{width:72px;height:72px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin:0 auto 11px;color:#fff;border:2px solid var(--gold)}
+.tcard h4{font-size:.92rem;font-weight:700;color:var(--primary);margin-bottom:3px}
+.tcard .role2{color:var(--text-muted);font-size:.77rem;font-weight:600;margin-bottom:9px}
+.tcard p{font-size:.79rem;color:var(--text-muted);line-height:1.72}
+
+/* ── CONTACT ── */
+#contact{background:var(--surface)}
+.contact-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:52px}
+.contact-info h3{font-size:1.25rem;font-weight:900;color:var(--primary);margin-bottom:8px}
+.contact-info>p{color:var(--text-muted);margin-bottom:26px;font-size:.92rem;line-height:1.82}
+.ci-list{display:flex;flex-direction:column;gap:13px}
+.ci-row{display:flex;align-items:flex-start;gap:12px}
+.ci-ico{width:44px;height:44px;background:var(--primary);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;color:#fff}
+.ci-label{font-size:.8rem;color:var(--text-muted);font-weight:600}
+.ci-val{font-size:.9rem;font-weight:700;color:var(--text);line-height:1.5}
+.ci-phone-row{display:flex;align-items:center;gap:6px}
+.ci-phone-icon{order:2}
+.ci-phone-num{direction:ltr;font-weight:700;font-size:.9rem;order:1}
+.qr-wrap{margin-top:20px;text-align:center}
+.qr-wrap img{width:140px;height:140px;border-radius:var(--rs);border:3px solid var(--gold);display:block;margin:0 auto 8px}
+.qr-label{font-size:.78rem;color:var(--text-muted);font-weight:600}
+.form-wrap{background:var(--bg);padding:26px;border-radius:var(--r);border:1px solid var(--border-lt);box-shadow:var(--sh-s);display:flex;flex-direction:column;gap:12px}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fld{display:flex;flex-direction:column;gap:5px}
+.fld label{font-size:.82rem;font-weight:700;color:var(--text)}
+.fld input,.fld select,.fld textarea{padding:11px 13px;border:2px solid var(--border-lt);border-radius:var(--rs);font-family:var(--font);font-size:.9rem;color:var(--text);background:var(--surface);transition:border-color var(--t);direction:rtl;outline:none;width:100%}
+.fld input:focus,.fld select:focus,.fld textarea:focus{border-color:var(--gold);background:#fff}
+.fld textarea{resize:vertical;min-height:106px}
+.form-submit{width:100%;padding:13px;background:var(--gold);color:#fff;border:none;border-radius:var(--rs);font-size:.96rem;font-weight:700;transition:var(--t);font-family:var(--font);display:flex;align-items:center;justify-content:center;gap:8px}
+.form-submit:hover{background:var(--gold-dark);transform:translateY(-2px);box-shadow:0 8px 24px rgba(201,162,39,.3)}
+.wa-hint{display:flex;align-items:center;gap:6px;font-size:.77rem;color:var(--text-muted);justify-content:center;margin-top:2px}
+.wa-dot{width:8px;height:8px;background:#25D366;border-radius:50%;flex-shrink:0}
+
+/* ── FOOTER ── */
+footer{background:#040f1e;padding:56px 0 0}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1.4fr;gap:40px;margin-bottom:38px}
+.foot-brand .fn{font-size:1.08rem;font-weight:900;color:#fff;margin-bottom:2px}
+.foot-brand .fs{font-size:.68rem;color:rgba(201,162,39,.85);margin-bottom:11px}
+.foot-brand .fd{font-size:.81rem;color:rgba(255,255,255,.45);line-height:1.82}
+.foot-col-title{color:rgba(201,162,39,.9);font-size:.88rem;font-weight:700;margin-bottom:14px;padding-bottom:7px;border-bottom:2px solid var(--gold);display:inline-block}
+.foot-links{display:flex;flex-direction:column;gap:8px}
+.foot-links a{color:rgba(255,255,255,.5);font-size:.8rem;transition:var(--t)}
+.foot-links a:hover{color:var(--gold);padding-right:5px}
+.foot-bottom{border-top:1px solid rgba(255,255,255,.08);padding:16px 0;display:flex;align-items:center;justify-content:space-between;font-size:.75rem;color:rgba(255,255,255,.28)}
+
+/* ── UTILS ── */
+#go-top{position:fixed;bottom:24px;left:24px;width:44px;height:44px;background:var(--gold);color:#fff;border:none;border-radius:50%;font-size:1.1rem;opacity:0;pointer-events:none;transition:var(--t);z-index:900;box-shadow:var(--sh-m)}
+#go-top.show{opacity:1;pointer-events:auto}
+#go-top:hover{transform:translateY(-3px)}
+#toast{position:fixed;bottom:24px;right:24px;background:#040f1e;color:#fff;padding:13px 18px;border-radius:var(--rs);font-size:.87rem;box-shadow:var(--sh-l);border-right:4px solid var(--gold);transform:translateY(80px);opacity:0;transition:var(--t);z-index:9999;pointer-events:none;max-width:290px;line-height:1.55}
+#toast.show{transform:translateY(0);opacity:1}
+.anim{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.anim.in{opacity:1;transform:translateY(0)}
+.stag>*{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease}
+.stag.in>*:nth-child(1){opacity:1;transform:translateY(0);transition-delay:.05s}
+.stag.in>*:nth-child(2){opacity:1;transform:translateY(0);transition-delay:.11s}
+.stag.in>*:nth-child(3){opacity:1;transform:translateY(0);transition-delay:.17s}
+.stag.in>*:nth-child(4){opacity:1;transform:translateY(0);transition-delay:.23s}
+.stag.in>*:nth-child(5){opacity:1;transform:translateY(0);transition-delay:.29s}
+.stag.in>*:nth-child(6){opacity:1;transform:translateY(0);transition-delay:.35s}
+.fld input[dir="ltr"]{direction:ltr;text-align:right;unicode-bidi:embed}
+
+@media(max-width:1024px){.why-grid{grid-template-columns:repeat(3,1fr)}.foot-grid{grid-template-columns:1fr 1fr;gap:24px}}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-panel{display:none}#stats{display:block}.stats-row{grid-template-columns:repeat(2,1fr)}.s-cell{border:none;border-bottom:1px solid rgba(255,255,255,.1)}}
+@media(max-width:768px){
+  section{padding:60px 0}
+  .nav-links,.nav-cta-btn{display:none}.hbg{display:flex}
+  .about-grid{grid-template-columns:1fr;gap:24px}
+  .prin-grid{grid-template-columns:1fr 1fr}
+  .srv-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .leader-card{grid-template-columns:1fr;text-align:center;gap:14px}.av-big{margin:0 auto}
+  .team-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr;gap:28px}
+  .f2{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bottom{flex-direction:column;gap:5px;text-align:center}
+  .hero-content{padding:110px 24px 60px}
+  .hero-btns{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:480px){.prin-grid{grid-template-columns:1fr}.team-grid{grid-template-columns:1fr}.why-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- ── AUTH BAR ── -->
+<div id="auth-bar" style="position:fixed;top:0;left:0;right:0;z-index:1001">
+  <div class="w">
+    <div class="auth-in">
+      <div id="sync-status"></div>
+      <button id="signin-btn" onclick="signIn()">تسجيل الدخول بـ Google</button>
+      <div id="user-info">
+        <img id="user-photo" src="" alt="">
+        <span id="user-name"></span>
+        <button id="signout-btn" onclick="signOut()">خروج</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NAV ── -->
+<nav id="nav" style="top:38px">
+  <div class="w">
+    <div class="nav-in">
+      <a href="#hero" class="nav-brand">
+        <img src="ieeg-logo.jpg" alt="IEEG" class="nav-logo-img">
+        <div>
+          <span class="n1">المجموعة الاقتصادية الدولية</span>
+          <span class="n2">لريادة الأعمال – القاهرة</span>
+        </div>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#about">من نحن</a></li>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="#why">لماذا نحن</a></li>
+        <li><a href="#team">فريق القيادة</a></li>
+        <li><a href="#contact">تواصل معنا</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-p nav-cta-btn" style="margin:10px;padding:9px 20px;font-size:.83rem">احصل على استشارة</a>
+      <button class="hbg" onclick="openMob()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── MOBILE NAV ── -->
+<div class="mob-nav" id="mob-nav">
+  <button class="mob-x" onclick="closeMob()">✕</button>
+  <a href="#about" onclick="closeMob()">من نحن</a>
+  <a href="#services" onclick="closeMob()">خدماتنا</a>
+  <a href="#why" onclick="closeMob()">لماذا نحن</a>
+  <a href="#team" onclick="closeMob()">فريق القيادة</a>
+  <a href="#contact" onclick="closeMob()">تواصل معنا</a>
+  <a href="#contact" class="btn btn-p" onclick="closeMob()">احصل على استشارة</a>
+</div>
+
+<!-- ── HERO ── -->
+<section id="hero" style="padding-top:76px">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <span class="hero-badge">🏆 من أفضل بيوت الخبرة في الاستشارات الإدارية بالوطن العربي</span>
+      <h1 class="hero-h">
+        شريكك الاستشاري<br>
+        نحو <em>نجاح مشروعك</em><br>
+        بخبرة علمية وعملية
+      </h1>
+      <p class="hero-p">
+        المجموعة الاقتصادية الدولية لريادة الأعمال — شركة استثمار مصرية مرخصة، متخصصة في الاستشارات الإدارية، دراسات الجدوى، والحوكمة المؤسسية للسوقين المصري والخليجي.
+      </p>
+      <div class="hero-btns">
+        <a href="#services" class="btn btn-p">استعرض خدماتنا</a>
+        <a href="#contact" class="btn btn-o">تواصل معنا</a>
+      </div>
+      <div class="reg-badge">
+        🏛️ س.ت: 198044 &nbsp;|&nbsp; بطاقة ضريبية: 118-037-705
+      </div>
+    </div>
+    <div class="hero-panel">
+      <div class="hero-lbl">أرقامنا تتحدث</div>
+      <div class="hero-stats-grid">
+        <div class="hstat"><div class="hstat-n" data-to="500">0</div><div class="hstat-l">دراسة جدوى</div></div>
+        <div class="hstat"><div class="hstat-n" data-to="300">0</div><div class="hstat-l">خطة حوكمة</div></div>
+        <div class="hstat"><div class="hstat-n" data-to="800">0</div><div class="hstat-l">عميل راضٍ</div></div>
+        <div class="hstat"><div class="hstat-n" data-to="15">0</div><div class="hstat-l">سنة خبرة</div></div>
+      </div>
+      <a href="#contact" class="btn btn-w" style="justify-content:center;margin-top:6px">احجز استشارة مجانية</a>
+      <div class="hero-meta">
+        📍 مدينة نصر، القاهرة، جمهورية مصر العربية<br>
+        52 شارع الطيران الرئيسي – الدور الثاني – مكتب 4<br>
+        www.ieegltd.com
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COVER IMAGE ── -->
+<div id="cover">
+  <img src="ieeg-cover.jpg" alt="المجموعة الاقتصادية الدولية">
+</div>
+
+<!-- ── STATS MOBILE ── -->
+<section id="stats">
+  <div class="stats-row">
+    <div class="s-cell"><div class="s-num" data-to="500">0</div><div class="s-lbl">دراسة جدوى</div></div>
+    <div class="s-cell"><div class="s-num" data-to="300">0</div><div class="s-lbl">خطة حوكمة</div></div>
+    <div class="s-cell"><div class="s-num" data-to="800">0</div><div class="s-lbl">عميل راضٍ</div></div>
+    <div class="s-cell"><div class="s-num" data-to="15">0</div><div class="s-lbl">سنة خبرة</div></div>
+  </div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="w">
+    <div class="about-grid">
+      <div class="about-txt anim">
+        <span class="tag">من نحن</span>
+        <h2 class="sh">المجموعة الاقتصادية الدولية لريادة الأعمال</h2>
+        <div class="bar" style="margin-right:0;margin-left:auto"></div>
+        <p>واحدة من أفضل بيوت الخبرة المتخصصة في تلبية احتياجات السوق العربي من الخدمات الاستشارية الإدارية، مسجلة في جمهورية مصر العربية كشركة استثمار محدودة خاضعة للقانون رقم 159 لسنة 1981.</p>
+        <p>نجمع بين العمق العلمي والخبرة العملية الممتدة لسنوات في السوقين المصري والخليجي، لنقدم حلولاً استشارية دقيقة ومنهجية تخدم شركاءنا في تحقيق أهدافهم.</p>
+        <div class="official-box">🏛️ &nbsp;سجل تجاري: 198044 &nbsp;|&nbsp; بطاقة ضريبية: 118-037-705 &nbsp;|&nbsp; مكتب استثمار القاهرة</div>
+        <a href="#contact" class="btn btn-p" style="margin-top:22px">تحدث مع خبير ←</a>
+      </div>
+      <div class="vmv anim">
+        <div class="vmv-card"><h3>🎯 رؤيتنا</h3><p>أن نصبح رواد خدمات الاستشارات الإدارية في الوطن العربي، ونبني شراكات تعاون مع كبرى المكاتب في مجال الاستشارات الإدارية</p></div>
+        <div class="vmv-card"><h3>🚀 مهمتنا</h3><p>تقديم استشارات إدارية ترقى لاحتياجات عملائنا، بمعايير مهنية عالية ومنهجية علمية رصينة</p></div>
+        <div class="vmv-card"><h3>⭐ قيمتنا</h3><p>الدمج بين الرؤية العلمية والواقع العملي لاستنباط الاتجاهات الصحيحة وتقديم الحلول المثلى لكل عميل</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRINCIPLES ── -->
+<section id="principles">
+  <div class="w">
+    <div class="sec-top anim">
+      <span class="tag">مبادئنا</span>
+      <h2 class="sh">القيم التي تحكم عملنا</h2>
+      <div class="bar"></div>
+      <p class="ssub">التزامات راسخة تضمن جودة خدماتنا وثقة شركائنا</p>
+    </div>
+    <div class="prin-grid stag">
+      <div class="prin-card"><div class="pico">🔬</div><p>نؤمن بمبدأ الدمج بين الرؤية العلمية والواقع العملي لاستنباط الأوضاع والاتجاهات الصحيحة</p></div>
+      <div class="prin-card"><div class="pico">🎯</div><p>نحرص على تقديم خدمة استشارية فائقة الدقة المنهجية والحرفية في كل مراحل العمل</p></div>
+      <div class="prin-card"><div class="pico">🤝</div><p>الالتزام ببنود الاتفاقات المُبرمة وفق أبعادها الزمنية والوظيفية مبدأ محل عنايتنا الأكيدة</p></div>
+      <div class="prin-card"><div class="pico">📈</div><p>العمل الدؤوب نحو التطوير والتحسين المستمر لضمان الارتقاء بمستوى خدماتنا باستمرار</p></div>
+      <div class="prin-card"><div class="pico">💬</div><p>الحرص على ديمومة التواصل الداعم مع شركائنا وعملائنا لبناء علاقات ناجحة ومستدامة</p></div>
+      <div class="prin-card"><div class="pico">🌍</div><p>وكلاء تنفيذيون لكبرى شركات الاستشارات الإدارية في مصر ودول مجلس التعاون الخليجي</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVICES ── -->
+<section id="services">
+  <div class="w">
+    <div class="sec-top anim">
+      <span class="tag">خدماتنا</span>
+      <h2 class="sh">الخدمات الاستشارية التي نقدمها</h2>
+      <div class="bar"></div>
+      <p class="ssub">حلول متكاملة لكل احتياجاتكم الإدارية والاقتصادية</p>
+    </div>
+    <div class="tabs-bar">
+      <button class="tab on" onclick="showTab(this,'eco')">الدراسات الاقتصادية</button>
+      <button class="tab" onclick="showTab(this,'adm')">الاستشارات الإدارية</button>
+      <button class="tab" onclick="showTab(this,'gov')">الحوكمة المؤسسية</button>
+    </div>
+    <div class="panel on" id="pan-eco">
+      <div class="srv-grid stag">
+        <div class="scard">
+          <div class="sc-head"><div class="ico">📊</div><div><h3>دراسات الجدوى</h3><p>للمشروعات في مرحلة الفكرة</p></div></div>
+          <div class="sc-body"><ul>
+            <li>ملخص تنفيذي شامل</li><li>دراسة تسويقية ودراسة السوق</li>
+            <li>تحليل حجم السوق والمنافسين</li><li>دراسة فنية للتحقق من التنفيذ</li>
+            <li>دراسة مالية بمؤشرات الربحية</li><li>تحليل الحساسية والمخاطر</li>
+          </ul></div>
+        </div>
+        <div class="scard">
+          <div class="sc-head"><div class="ico">📋</div><div><h3>خطط العمل</h3><p>للمشروعات القائمة أو على وشك التنفيذ</p></div></div>
+          <div class="sc-body"><ul>
+            <li>خارطة طريق تنفيذية متكاملة</li><li>دراسة فنية تفصيلية (محور الخطة)</li>
+            <li>الخطة التشغيلية ووصف العمليات</li><li>تصميم الهيكل التنظيمي</li>
+            <li>مؤشرات الأداء الرئيسية KPIs</li><li>الدراسة المالية الشاملة</li>
+          </ul></div>
+        </div>
+        <div class="scard">
+          <div class="sc-head"><div class="ico">💡</div><div><h3>الاستشارات التمويلية</h3><p>متوافق مع متطلبات البنوك</p></div></div>
+          <div class="sc-body"><ul>
+            <li>معرفة كاملة بمتطلبات الجهاز المصرفي</li><li>دراسات للحصول على التمويل البنكي</li>
+            <li>تقييم الجدارة الائتمانية</li><li>خطط سداد وهياكل تمويلية</li>
+            <li>التعامل مع صناديق الاستثمار</li><li>استشارات تأسيس الشركات</li>
+          </ul></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel" id="pan-adm">
+      <div class="srv-grid stag">
+        <div class="sf"><h3>🏗️ التنظيم الإداري وإعادة الهيكلة</h3><p>وضع الهياكل التنظيمية المثلى وبطاقات الوصف الوظيفي لضمان كفاءة العمل وتحقيق الأهداف الاستراتيجية.</p></div>
+        <div class="sf"><h3>📄 لائحة النظام الأساسي</h3><p>تنظيم مسارات العمل على مستوى الإدارات العليا والمساهمين وتحديد القواعد المرجعية الملزمة للشركة.</p></div>
+        <div class="sf"><h3>🔑 مصفوفة الصلاحيات</h3><p>تحديد حدود الصلاحيات الإدارية لكل منصب وظيفي بدقة لمنع التضارب وضمان المساءلة الكاملة.</p></div>
+        <div class="sf"><h3>📝 اللائحة الداخلية للعمل</h3><p>تنظيم القواعد التي تحكم العاملين على المستويات الوظيفية المختلفة وقواعد الجزاءات والمكافآت.</p></div>
+        <div class="sf"><h3>📚 دليل السياسات والإجراءات</h3><p>القواعد التنظيمية الملزمة لكل إدارة وإجراءات التنفيذ، مع تركيز على الموارد البشرية والإدارة المالية.</p></div>
+        <div class="sf"><h3>📊 مؤشرات الأداء KPIs</h3><p>تصميم منظومة متكاملة لقياس الأداء المؤسسي على كل المستويات الوظيفية بمعايير قابلة للقياس.</p></div>
+      </div>
+    </div>
+    <div class="panel" id="pan-gov">
+      <div class="srv-grid stag">
+        <div class="sf"><h3>📜 خطط الحوكمة المؤسسية</h3><p>الوثيقة الشاملة التي تضمن التزام كافة أصحاب المصلحة — مجلس الإدارة، الإدارة التنفيذية، والمساهمين — بمصلحة الشركة.</p></div>
+        <div class="sf"><h3>🛡️ سياسات الإفصاح والشفافية</h3><p>إعداد سياسات الإفصاح وضمان التوافق مع اشتراطات هيئة سوق المال والأنظمة المحلية المعتمدة.</p></div>
+        <div class="sf"><h3>⚖️ الامتثال والرقابة الداخلية</h3><p>بناء أنظمة رقابة داخلية فعالة وضمان الامتثال للقوانين واللوائح التنظيمية المصرية والخليجية.</p></div>
+        <div class="sf"><h3>🏦 حوكمة الشركات العائلية</h3><p>تأسيس منظومة حوكمة تحفظ استمرارية الشركات العائلية وتنظم العلاقة بين الملكية والإدارة.</p></div>
+        <div class="sf"><h3>📋 ميثاق مجلس الإدارة</h3><p>صياغة ميثاق عمل مجلس الإدارة وتحديد مهام اللجان الفرعية ومعايير اختيار الأعضاء المستقلين.</p></div>
+        <div class="sf"><h3>🔄 مراجعة وتقييم الحوكمة</h3><p>تقييم دوري لمنظومة الحوكمة القائمة وإعداد خارطة طريق لتطويرها وفق أفضل الممارسات الدولية.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY ── -->
+<section id="why">
+  <div class="w">
+    <div class="sec-top anim">
+      <span class="tag">لماذا نحن</span>
+      <h2 class="sh">لماذا تختار المجموعة الاقتصادية الدولية؟</h2>
+      <div class="bar"></div>
+      <p class="ssub">اختيارنا يعني اختيار الشريك الموثوق لإعداد الدراسة التي تمهد لنجاح مشروعك</p>
+    </div>
+    <div class="why-grid stag">
+      <div class="wcard"><span>🎓</span><h4>خبرة علمية متميزة</h4><p>فريق من حاملي الدكتوراه في إدارة الأعمال بخبرات ممتدة في الاستشارات والأبحاث التطبيقية</p></div>
+      <div class="wcard">
+        <div class="wico"><img src="egypt-icon.png" alt="مصر" onerror="this.parentElement.innerHTML='🇪🇬'"></div>
+        <h4>معرفة السوق المصري</h4><p>خبرة عميقة بالسوق المصري ومتطلبات الجهاز المصرفي والاستثماري في مصر</p>
+      </div>
+      <div class="wcard"><span>🌍</span><h4>امتداد خليجي</h4><p>وكلاء تنفيذيون لكبرى الشركات الاستشارية في السعودية والإمارات ودول الخليج</p></div>
+      <div class="wcard"><span>💰</span><h4>أسعار مرنة ومناسبة</h4><p>عروض أسعار مخفضة واختيارات مرنة للدفع تناسب مختلف أحجام الشركات والمشروعات</p></div>
+      <div class="wcard"><span>🔄</span><h4>حلول بديلة مبتكرة</h4><p>قدرة على إيجاد بدائل مختلفة في حالة وجود أي تحديات تحول دون استكمال المشروع</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TEAM ── -->
+<section id="team">
+  <div class="w">
+    <div class="sec-top anim">
+      <span class="tag">فريق القيادة</span>
+      <h2 class="sh">الخبراء وراء نجاحكم</h2>
+      <div class="bar"></div>
+      <p class="ssub">قيادة أكاديمية وعملية متكاملة تغطي كافة جوانب الاستشارة الإدارية والاقتصادية</p>
+    </div>
+    <div class="leader-card anim">
+      <img src="tamer-pic.jpg" alt="د. تامر البطراوي" class="av-big" onerror="this.outerHTML='<div class=av-big-placeholder>👨‍🏫</div>'">
+      <div class="leader-info">
+        <h3>د. تامر البطراوي</h3>
+        <div class="role">مدير المجموعة الاقتصادية الدولية &nbsp;|&nbsp; رئيس قطاع البحوث &nbsp;|&nbsp; دكتوراه في إدارة الأعمال</div>
+        <p>حاصل على دكتوراه الفلسفة في إدارة الأعمال، عمل محاضراً لمادة الاقتصاد السياسي وإدارة الأعمال، ومدير إداري بشركة جيستل ثم مدير تنفيذي بشركة تري بل للاستشارات الاقتصادية.</p>
+        <div class="books">📚 <strong>من مؤلفاته:</strong> فلسفة علم السياحة (2016) · أبحاث في الاقتصاد السياسي (2017) · رأس المال التنظيمي · مبادئ إدارة الأعمال · كيف يمكننا حل مشكلة التوظيف وتحقيق الرفاهية الاقتصادية</div>
+      </div>
+    </div>
+    <div class="team-grid stag">
+      <div class="tcard">
+        <img src="islam-pic.jpg" alt="أ. إسلام كرسون" class="av-sm" onerror="this.outerHTML='<div class=av-sm-placeholder>👨‍💼</div>'">
+        <h4>أ. إسلام كرسون</h4>
+        <div class="role2">مدير ومؤسس مشارك | رئيس قطاع علاقات الاستثمار</div>
+        <p>حاصل على دورات متخصصة من كلية أكسفورد في الموارد البشرية، عمل مديراً عاماً لكبرى شركات الاستشارات في السعودية، وله خبرات موسعة في تأسيس الشركات بالسعودية والإمارات.</p>
+      </div>
+      <div class="tcard">
+        <div class="av-sm-placeholder">🌍</div>
+        <h4>فريق الاستشارات الإقليمي</h4>
+        <div class="role2">مصر · السعودية · الإمارات · دول الخليج</div>
+        <p>شبكة من الخبراء المتخصصين في أسواق المنطقة، وكلاء تنفيذيون لكبرى شركات الاستشارات الإدارية في مصر ودول مجلس التعاون الخليجي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="w">
+    <div class="sec-top anim">
+      <span class="tag">تواصل معنا</span>
+      <h2 class="sh">ابدأ رحلة نجاحك معنا</h2>
+      <div class="bar"></div>
+      <p class="ssub">فريقنا الاستشاري على أتم الاستعداد للرد عليك خلال 24 ساعة عمل</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info anim">
+        <h3>معلومات التواصل</h3>
+        <p>تواصل مع فريقنا للحصول على استشارة مجانية ومعرفة كيف يمكننا دعم مشروعك لتحقيق أهدافه.</p>
+        <div class="ci-list">
+          <div class="ci-row">
+            <div class="ci-ico">📍</div>
+            <div>
+              <div class="ci-label">العنوان</div>
+              <div class="ci-val">52 شارع الطيران الرئيسي – الدور الثاني – مكتب 4<br>مدينة نصر، القاهرة، مصر</div>
+            </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-ico">📱</div>
+            <div>
+              <div class="ci-label">الجوال وواتساب</div>
+              <div class="ci-val">
+                <span class="ci-phone-num" dir="ltr">+20 12 89707873</span>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="ci-row">
+            <div class="ci-ico">✉️</div>
+            <div>
+              <div class="ci-label">البريد الإلكتروني</div>
+              <div class="ci-val">info@ieegltd.com</div>
+            </div>
+          </div> -->
+          <div class="ci-row">
+            <div class="ci-ico">🌐</div>
+            <div>
+              <div class="ci-label">الموقع الإلكتروني</div>
+              <div class="ci-val">www.ieegltd.com</div>
+            </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-ico">🕐</div>
+            <div>
+              <div class="ci-label">ساعات العمل</div>
+              <div class="ci-val">الأحد – الخميس: 9 صباحاً – 5 مساءً</div>
+            </div>
+          </div>
+          <div class="ci-row">
+            <div class="ci-ico">🏛️</div>
+            <div>
+              <div class="ci-label">البيانات الرسمية</div>
+              <div class="ci-val">س.ت: 198044 | ضريبية: 118-037-705</div>
+            </div>
+          </div>
+          <!-- QR CODE -->
+          <div class="qr-wrap">
+            <img src="ieeg-qr-code.jpg" alt="QR Code - المجموعة الاقتصادية الدولية">
+            <div class="qr-label">امسح الكود للتواصل السريع</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-wrap anim">
+        <div class="f2">
+          <div class="fld"><label>الاسم الكامل *</label><input type="text" id="f-name" placeholder="أدخل اسمك الكامل"></div>
+          <div class="fld"><label>رقم الجوال *</label><input type="tel" dir="ltr" id="f-phone" placeholder="+20 1X XXXX XXXX"></div>
+        </div>
+        <!-- <div class="fld"><label>البريد الإلكتروني</label><input type="email" id="f-email" placeholder="example@email.com"></div> -->
+        <div class="fld">
+          <label>الخدمة المطلوبة *</label>
+          <select id="f-svc">
+            <option value="" disabled selected>اختر الخدمة المطلوبة</option>
+            <option>دراسة جدوى</option>
+            <option>خطة عمل</option>
+            <option>خطة حوكمة مؤسسية</option>
+            <option>تنظيم إداري وإعادة هيكلة</option>
+            <option>لائحة نظام أساسي</option>
+            <option>مصفوفة صلاحيات</option>
+            <option>دليل سياسات وإجراءات</option>
+            <option>استشارة تمويلية</option>
+            <option>استشارة إدارية أخرى</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label>وصف المشروع أو الطلب</label>
+          <textarea id="f-msg" placeholder="اوصفلنا مشروعك أو احتياجك الاستشاري..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">إرسال الطلب عبر واتساب 💬</button>
+        <div class="wa-hint"><div class="wa-dot"></div>هيتفتح واتساب تلقائياً مع تفاصيل طلبك</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="w">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="fn">المجموعة الاقتصادية الدولية لريادة الأعمال</div>
+        <div class="fs">IEEG Ltd – القاهرة، مصر</div>
+        <p class="fd">شركة استثمار مصرية مرخصة، متخصصة في تقديم الاستشارات الإدارية والاقتصادية لقطاع الأعمال في مصر والوطن العربي بمعايير احترافية عالية.</p>
+      </div>
+      <div>
+        <div class="foot-col-title">روابط سريعة</div>
+        <ul class="foot-links">
+          <li><a href="#about">من نحن</a></li>
+          <li><a href="#services">خدماتنا</a></li>
+          <li><a href="#why">لماذا نحن</a></li>
+          <li><a href="#team">فريق القيادة</a></li>
+          <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">خدماتنا</div>
+        <ul class="foot-links">
+          <li><a href="#services">دراسات الجدوى</a></li>
+          <li><a href="#services">خطط العمل</a></li>
+          <li><a href="#services">الحوكمة المؤسسية</a></li>
+          <li><a href="#services">التنظيم الإداري</a></li>
+          <li><a href="#services">الاستشارات التمويلية</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="foot-col-title">تواصل</div>
+        <ul class="foot-links">
+          <li><a href="#">📍 مدينة نصر، القاهرة، مصر</a></li>
+          <li><a href="https://wa.me/201289707873" dir="ltr">+20 12 89707873 📱</a></li>
+          <!-- <li><a href="mailto:info@ieegltd.com">✉️ info@ieegltd.com</a></li> -->
+          <li><a href="https://www.ieegltd.com">🌐 www.ieegltd.com</a></li>
+          <li><a href="#">🕐 الأحد – الخميس: 9 ص – 5 م</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2010 المجموعة الاقتصادية الدولية لريادة الأعمال — جميع الحقوق محفوظة</span>
+      <span>مرخصة في جمهورية مصر العربية 🇪🇬 | س.ت: 198044</span>
+    </div>
+  </div>
+</footer>
+
+<button id="go-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<div id="toast">✅ تم إرسال طلبك! هيتفتح واتساب دلوقتي.<br><small>هنتواصل معاك خلال 24 ساعة عمل</small></div>
+
+<!-- ── FIREBASE ── -->
+<script type="module">
+import { initializeApp } from 'https://esm.sh/firebase@10.7.0/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://esm.sh/firebase@10.7.0/auth';
+import { getDatabase, ref, set, get, onValue } from 'https://esm.sh/firebase@10.7.0/database';
+
+const FIREBASE_CONFIG = {
+  apiKey:"REPLACE_YOUR_API_KEY",
+  authDomain:"REPLACE_YOUR_PROJECT_ID.firebaseapp.com",
+  projectId:"REPLACE_YOUR_PROJECT_ID",
+  storageBucket:"REPLACE_YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId:"REPLACE_SENDER_ID",
+  appId:"REPLACE_APP_ID",
+  databaseURL:"https://REPLACE_YOUR_PROJECT_ID-default-rtdb.firebaseio.com"
+};
+
+const app = initializeApp(FIREBASE_CONFIG);
+const auth = getAuth(app);
+const db = getDatabase(app);
+const provider = new GoogleAuthProvider();
+
+let currentUser = null;
+let debounceTimer = null;
+
+/* ── helpers ── */
+function setStatus(msg, cls){
+  const el = document.getElementById('sync-status');
+  el.textContent = msg; el.className = cls || '';
+  if(cls==='saved') setTimeout(()=>{el.textContent='';el.className='';},3000);
+}
+
+/* ── auth ── */
+window.signIn = async () => {
+  try { await signInWithPopup(auth, provider); }
+  catch(e){ console.error(e); }
+};
+window.signOut = async () => { await fbSignOut(auth); };
+
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+  const info = document.getElementById('user-info');
+  const btn  = document.getElementById('signin-btn');
+  if(user){
+    document.getElementById('user-photo').src = user.photoURL||'';
+    document.getElementById('user-name').textContent = user.displayName||user.email;
+    info.style.display='flex'; btn.style.display='none';
+  } else {
+    info.style.display='none'; btn.style.display='inline-block';
+  }
+});
+
+/* ── collect form data ── */
+function collectLead(){
+  return {
+    name:    document.getElementById('f-name').value.trim(),
+    phone:   document.getElementById('f-phone').value.trim(),
+    // email: document.getElementById('f-email').value.trim(),
+    service: document.getElementById('f-svc').value || '',
+    message: document.getElementById('f-msg').value.trim(),
+    source:  'website',
+    updatedAt: Date.now()
+  };
+}
+
+/* ── similarity check (simple) ── */
+function isSimilar(a, b){
+  if(!a||!b) return false;
+  const normalize = s => (s||'').replace(/\s+/g,'').toLowerCase();
+  return normalize(a.phone) === normalize(b.phone) ||
+    (normalize(a.name) === normalize(b.name) && normalize(a.service) === normalize(b.service));
+}
+
+/* ── save to Realtime DB ── */
+async function saveToDB(lead, isSubmit){
+  if(!lead.name && !lead.phone) return;
+  try {
+    const snap = await get(ref(db,'leads'));
+    let existingKey = null;
+    if(snap.exists()){
+      snap.forEach(child => {
+        if(isSimilar(child.val(), lead)) existingKey = child.key;
+      });
+    }
+    const emailSlug = (lead.email || lead.phone || 'anon').replace(/[@.]/g,'_').replace(/\s+/g,'').toLowerCase();
+    const svcSlug = (lead.service||'general').replace(/\s+/g,'-').substring(0,20);
+    const key = existingKey || (`${emailSlug}_${svcSlug}_${Date.now()}`);
+    await set(ref(db, 'leads/' + key), { ...lead, submitted: isSubmit || false });
+    setStatus(isSubmit ? '✓ تم الإرسال والحفظ' : '✓ تم الحفظ التلقائي', 'saved');
+  } catch(e){
+    setStatus('خطأ في الحفظ', 'error');
+    console.error(e);
+  }
+}
+
+/* ── debounced auto-save on typing (3s pause) ── */
+function onFieldInput(){
+  clearTimeout(debounceTimer);
+  setStatus('جاري الحفظ...', 'saving');
+  debounceTimer = setTimeout(() => {
+    const lead = collectLead();
+    saveToDB(lead, false);
+  }, 3000);
+}
+
+['f-name','f-phone','f-msg'].forEach(id => {
+  const el = document.getElementById(id);
+  if(el) el.addEventListener('input', onFieldInput);
+});
+document.getElementById('f-svc').addEventListener('change', onFieldInput);
+
+/* ── submit ── */
+window.submitForm = async () => {
+  const name    = document.getElementById('f-name').value.trim();
+  const phone   = document.getElementById('f-phone').value.trim();
+  const service = document.getElementById('f-svc').value;
+  const msg     = document.getElementById('f-msg').value.trim();
+  if(!name){ alert('من فضلك أدخل الاسم الكامل'); return; }
+  if(!phone){ alert('من فضلك أدخل رقم الجوال'); return; }
+  if(!service){ alert('من فضلك اختار الخدمة المطلوبة'); return; }
+  clearTimeout(debounceTimer);
+  const lead = collectLead();
+  await saveToDB(lead, true);
+  const waMsg = encodeURIComponent(
+    `*طلب استشارة جديد - المجموعة الاقتصادية الدولية*\n\n`+
+    `الاسم: ${name}\n`+
+    `الجوال: ${phone}\n`+
+    `الخدمة المطلوبة: ${service}\n`+
+    (msg?`\nتفاصيل الطلب:\n${msg}\n`:'')+
+    `\n---\nتم الإرسال من الموقع الإلكتروني`
+  );
+  window.open(`https://wa.me/201289707873?text=${waMsg}`,'_blank');
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),5000);
+  ['f-name','f-phone','f-msg'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('f-svc').selectedIndex=0;
+};
+</script>
+
+<script>
+/* ── NAV ── */
+const authBar = document.getElementById('auth-bar');
+const nav = document.getElementById('nav');
+const goTop = document.getElementById('go-top');
+const authH = authBar.offsetHeight || 38;
+window.addEventListener('scroll',()=>{
+  nav.classList.toggle('sc', scrollY > 50);
+  goTop.classList.toggle('show', scrollY > 400);
+  if(scrollY > 100){
+    authBar.style.transform = 'translateY(-100%)';
+    nav.style.top = '0';
+  } else {
+    authBar.style.transform = 'translateY(0)';
+    nav.style.top = authH + 'px';
+  }
+});
+authBar.style.transition = 'transform .3s ease';
+
+function openMob(){ document.getElementById('mob-nav').classList.add('op'); }
+function closeMob(){ document.getElementById('mob-nav').classList.remove('op'); }
+
+function showTab(btn,id){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  btn.classList.add('on');
+  const panel=document.getElementById('pan-'+id);
+  panel.classList.add('on');
+  const stag=panel.querySelector('.stag');
+  if(stag){stag.classList.remove('in');setTimeout(()=>stag.classList.add('in'),40);}
+}
+
+const io=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:.12});
+document.querySelectorAll('.anim,.stag').forEach(el=>io.observe(el));
+
+function runCounter(el,target,dur=1900){
+  const s=performance.now();
+  const tick=now=>{
+    const p=Math.min((now-s)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    el.textContent=Math.round(ease*target).toLocaleString('ar-EG')+(p>=1?'+':'');
+    if(p<1)requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
+}
+const cio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){runCounter(e.target,parseInt(e.target.dataset.to));cio.unobserve(e.target);}
+  });
+},{threshold:.4});
+document.querySelectorAll('[data-to]').forEach(el=>cio.observe(el));
+
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    const p=document.querySelector('#pan-eco .stag');
+    if(p)p.classList.add('in');
+  },400);
+});
+</script>
+</body>
+</html>
