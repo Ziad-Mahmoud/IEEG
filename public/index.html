@@ -696,18 +696,18 @@ footer{background:#040f1e;padding:56px 0 0}
 
 <!-- ── FIREBASE ── -->
 <script type="module">
-import { initializeApp } from 'https://esm.sh/firebase@10.7.0/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://esm.sh/firebase@10.7.0/auth';
-import { getDatabase, ref, set, get, onValue } from 'https://esm.sh/firebase@10.7.0/database';
+import { initializeApp } from 'https://esm.sh/firebase@12.14.0/app';
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut as fbSignOut, onAuthStateChanged } from 'https://esm.sh/@firebase/auth@1.13.2';
+import { getDatabase, ref, set, get } from 'https://esm.sh/firebase@12.14.0/database';
 
 const FIREBASE_CONFIG = {
-  apiKey:"REPLACE_YOUR_API_KEY",
-  authDomain:"REPLACE_YOUR_PROJECT_ID.firebaseapp.com",
-  projectId:"REPLACE_YOUR_PROJECT_ID",
-  storageBucket:"REPLACE_YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId:"REPLACE_SENDER_ID",
-  appId:"REPLACE_APP_ID",
-  databaseURL:"https://REPLACE_YOUR_PROJECT_ID-default-rtdb.firebaseio.com"
+  apiKey: "AIzaSyB4AOHNnELQXu6p5zzQY-L-YupJMoQkx1g",
+  authDomain: "ieeg-919b2.firebaseapp.com",
+  databaseURL: "https://ieeg-919b2-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "ieeg-919b2",
+  storageBucket: "ieeg-919b2.firebasestorage.app",
+  messagingSenderId: "838855800405",
+  appId: "1:838855800405:web:9fbbbc08ba69bc219506dc"
 };
 
 const app = initializeApp(FIREBASE_CONFIG);
@@ -758,29 +758,35 @@ function collectLead(){
   };
 }
 
-/* ── similarity check (simple) ── */
+/* ── similarity check ── */
 function isSimilar(a, b){
   if(!a||!b) return false;
-  const normalize = s => (s||'').replace(/\s+/g,'').toLowerCase();
-  return normalize(a.phone) === normalize(b.phone) ||
-    (normalize(a.name) === normalize(b.name) && normalize(a.service) === normalize(b.service));
+  const n = s => (s||'').replace(/\s+/g,'').toLowerCase();
+  return n(a.phone) === n(b.phone) ||
+    (n(a.name) === n(b.name) && n(a.service) === n(b.service));
 }
 
 /* ── save to Realtime DB ── */
 async function saveToDB(lead, isSubmit){
   if(!lead.name && !lead.phone) return;
   try {
-    const snap = await get(ref(db,'leads'));
-    let existingKey = null;
-    if(snap.exists()){
-      snap.forEach(child => {
-        if(isSimilar(child.val(), lead)) existingKey = child.key;
-      });
+    if(currentUser){
+      /* auth user: read → deduplicate → update or create */
+      const emailSlug = currentUser.email.replace(/[@.]/g,'_').toLowerCase();
+      const svcSlug = (lead.service||'general').replace(/\s+/g,'-').substring(0,20);
+      let existingKey = null;
+      try {
+        const snap = await get(ref(db,'leads'));
+        if(snap.exists()) snap.forEach(c=>{ if(isSimilar(c.val(),lead)) existingKey=c.key; });
+      } catch(e){ /* read failed — just create new */ }
+      const key = existingKey || `${emailSlug}_${svcSlug}_${Date.now()}`;
+      await set(ref(db,'leads/'+key), {...lead, userEmail:currentUser.email, submitted:isSubmit||false});
+    } else {
+      /* anonymous: write-only, new entry, submit only */
+      const ph = (lead.phone||'unknown').replace(/\s+/g,'').replace(/[^a-z0-9]/gi,'');
+      const key = `anon_${ph}_${Date.now()}`;
+      await set(ref(db,'leads/'+key), {...lead, userEmail:'anonymous', submitted:true});
     }
-    const emailSlug = (lead.email || lead.phone || 'anon').replace(/[@.]/g,'_').replace(/\s+/g,'').toLowerCase();
-    const svcSlug = (lead.service||'general').replace(/\s+/g,'-').substring(0,20);
-    const key = existingKey || (`${emailSlug}_${svcSlug}_${Date.now()}`);
-    await set(ref(db, 'leads/' + key), { ...lead, submitted: isSubmit || false });
     setStatus(isSubmit ? '✓ تم الإرسال والحفظ' : '✓ تم الحفظ التلقائي', 'saved');
   } catch(e){
     setStatus('خطأ في الحفظ', 'error');
@@ -788,18 +794,15 @@ async function saveToDB(lead, isSubmit){
   }
 }
 
-/* ── debounced auto-save on typing (3s pause) ── */
+/* ── debounced auto-save — auth users only ── */
 function onFieldInput(){
+  if(!currentUser) return;
   clearTimeout(debounceTimer);
   setStatus('جاري الحفظ...', 'saving');
-  debounceTimer = setTimeout(() => {
-    const lead = collectLead();
-    saveToDB(lead, false);
-  }, 3000);
+  debounceTimer = setTimeout(()=>saveToDB(collectLead(), false), 3000);
 }
-
-['f-name','f-phone','f-msg'].forEach(id => {
-  const el = document.getElementById(id);
+['f-name','f-phone','f-msg'].forEach(id=>{
+  const el=document.getElementById(id);
   if(el) el.addEventListener('input', onFieldInput);
 });
 document.getElementById('f-svc').addEventListener('change', onFieldInput);
@@ -810,25 +813,22 @@ window.submitForm = async () => {
   const phone   = document.getElementById('f-phone').value.trim();
   const service = document.getElementById('f-svc').value;
   const msg     = document.getElementById('f-msg').value.trim();
-  if(!name){ alert('من فضلك أدخل الاسم الكامل'); return; }
-  if(!phone){ alert('من فضلك أدخل رقم الجوال'); return; }
+  if(!name)   { alert('من فضلك أدخل الاسم الكامل'); return; }
+  if(!phone)  { alert('من فضلك أدخل رقم الجوال'); return; }
   if(!service){ alert('من فضلك اختار الخدمة المطلوبة'); return; }
   clearTimeout(debounceTimer);
-  const lead = collectLead();
-  await saveToDB(lead, true);
+  await saveToDB(collectLead(), true);
   const waMsg = encodeURIComponent(
     `*طلب استشارة جديد - المجموعة الاقتصادية الدولية*\n\n`+
-    `الاسم: ${name}\n`+
-    `الجوال: ${phone}\n`+
-    `الخدمة المطلوبة: ${service}\n`+
+    `الاسم: ${name}\nالجوال: ${phone}\nالخدمة المطلوبة: ${service}\n`+
     (msg?`\nتفاصيل الطلب:\n${msg}\n`:'')+
     `\n---\nتم الإرسال من الموقع الإلكتروني`
   );
   window.open(`https://wa.me/201289707873?text=${waMsg}`,'_blank');
-  const toast = document.getElementById('toast');
+  const toast=document.getElementById('toast');
   toast.classList.add('show');
   setTimeout(()=>toast.classList.remove('show'),5000);
-  ['f-name','f-phone','f-msg'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  ['f-name','f-phone','f-msg'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('f-svc').selectedIndex=0;
 };
 </script>
