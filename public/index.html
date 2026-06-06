@@ -694,6 +694,75 @@ footer{background:#040f1e;padding:56px 0 0}
 <button id="go-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 <div id="toast">✅ تم إرسال طلبك! هيتفتح واتساب دلوقتي.<br><small>هنتواصل معاك خلال 24 ساعة عمل</small></div>
 
+<!-- ── SITE CONFIG — عدّل هنا فقط ── -->
+<script>
+const SITE = {
+  /* الشركة */
+  name:        'المجموعة الاقتصادية الدولية لريادة الأعمال',
+  nameShort:   'المجموعة الاقتصادية الدولية',
+  nameEn:      'IEEG Ltd',
+  tagline:     'للاستشارات الإدارية والاقتصادية – القاهرة',
+
+  /* التواصل */
+  phone:       '+20 12 89707873',
+  phoneWa:     '201289707873',
+  // email:    'info@ieegltd.com',
+  website:     'www.ieegltd.com',
+  websiteUrl:  'https://www.ieegltd.com',
+
+  /* العنوان */
+  address:     '52 شارع الطيران الرئيسي – الدور الثاني – مكتب 4',
+  city:        'مدينة نصر، القاهرة، مصر',
+  addressFull: '52 شارع الطيران الرئيسي – الدور الثاني – مكتب 4، مدينة نصر، القاهرة، جمهورية مصر العربية',
+
+  /* بيانات رسمية */
+  cr:          '198044',
+  tax:         '118-037-705',
+  founded:     '2010',
+
+  /* صور */
+  logo:        'ieeg-logo.jpg',
+  cover:       'ieeg-cover.jpg',
+  qr:          'ieeg-qr-code.jpg',
+  picTamer:    'tamer-pic.jpg',
+  picIslam:    'islam-pic.jpg',
+  egyptIcon:   'egypt-icon.png',
+
+  /* أرقام الإنجاز */
+  stats: {
+    feasibility: 500,
+    governance:  300,
+    clients:     800,
+    years:       15
+  },
+
+  /* ساعات العمل */
+  hours: 'الأحد – الخميس: 9 صباحاً – 5 مساءً',
+  hoursShort: 'الأحد – الخميس: 9 ص – 5 م',
+
+  /* واتساب */
+  waMessage: (name, phone, service, msg) =>
+    `*طلب استشارة جديد - المجموعة الاقتصادية الدولية*\n\nالاسم: ${name}\nالجوال: ${phone}\nالخدمة المطلوبة: ${service}\n${msg?`\nتفاصيل الطلب:\n${msg}\n`:''}\n---\nتم الإرسال من الموقع الإلكتروني`
+};
+
+/* ── inject config into DOM ── */
+document.addEventListener('DOMContentLoaded', () => {
+  // images
+  document.querySelectorAll('[data-s]').forEach(el => {
+    const key = el.dataset.s;
+    const val = key.split('.').reduce((o,k)=>o?.[k], SITE);
+    if(val === undefined) return;
+    if(el.tagName === 'IMG') el.src = val;
+    else if(el.tagName === 'A') el.href = val;
+    else el.textContent = val;
+  });
+  // stats counters
+  document.querySelectorAll('[data-stat]').forEach(el => {
+    el.dataset.to = SITE.stats[el.dataset.stat];
+  });
+});
+</script>
+
 <!-- ── FIREBASE ── -->
 <script type="module">
 import { initializeApp } from 'https://esm.sh/firebase@12.14.0/app';
